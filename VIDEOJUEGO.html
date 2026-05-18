@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SKYFALL</title>
+    <script src="class_videojuego_gm.js"></script>
+    
+</head>
+<body onkeydown="teclaPresionada(event)"  style="background-image: url(Materiales/fondo_lienzo.gif); background-size:cover;" >
+    <div id="pantallaInicio" style="position: absolute; top: 0; left: 0; width: 1200px; height: 680px; display:flex; align-items: center; justify-content:center;  background-image: url(Materiales/inicio.gif);"></div>
+    <canvas id="contenedor"  width = "1200"  height="600"   style="border: 5px solid; background-image: url(Materiales/fondo_cielo.gif); background-size: cover; display: none;"></canvas>
+    <div id="contenedorPuntaje">  
+        <span >PUNTAJE: <puntaje>0</puntaje></span>
+        <style>
+            #contenedorPuntaje {       /* el div es un "bloque" para agrupar contenido*/                 /* el span es un "bloque" dentro del div, pero solo es un texto, al menos en este caso que contiene el puntaje pre establecido, es una manera de separar secciones dentro del div por asi decirlo*/
+            position: fixed; /* Fija la posicion del marcador en la pantalla */ 
+            top: 20px; /* Alinea el marcador a 20 pixeles desde la parte superior */
+            left: 20px; /* Alinea el marcador a 20 pixeles desde la izquierda */
+            display: flex; /* Organiza los elementos internos en una fila */
+            }
+            #contenedorPuntaje {
+            color: #8014aa; /* Cambia el color del texto */
+            padding: 10px 25px; /* Agrega espacio dentro del texto */
+            font-family: monospace; /* Cambia el tipo de letra del texto */
+            font-size: 20px; /* Cambia el tamanio del texto */
+    
+            background-color: #0c7dee; /* Cambia el color de fondo del texto */
+            border-radius: 10px; /* Hace que las esquinas del texto sean redondeadas */
+            }
+            #contenedorPuntaje{
+                display: none;
+            }
+        </style>
+    </div>
+    <script>
+        var r_1 = {
+            x: 150, 
+            y: 240,
+            color: "red",
+            base: 130,
+            altura: 60,
+            velocidad: 15,
+            min: 0,
+            max: 150,
+            minBase: 30,
+            maxBase: 130,
+            minAltura: 30,
+            maxAltura: 60,
+        }
+        var r_2 = {
+            x: 900, 
+            y: 440, 
+            color: "blue",
+            base: 130,
+            altura: 60,
+            velocidad: 15,
+            min: 150,
+            max: 300,
+            minBase: 30,
+            maxBase: 130,
+            minAltura: 30,
+            maxAltura: 60,
+
+        }
+        var r_3 = {
+            x: 630,
+            y: 340,
+            color: "purple",
+            base: 130,
+            altura: 60,
+            velocidad: 15,
+            min: 300,
+            max: 450,
+            minBase: 30,
+            maxBase: 130,
+            minAltura: 30,
+            maxAltura: 60,
+
+        }
+        var r_4 = {
+            x: 800,
+            y: 100,
+            color: "red",
+            base: 130,
+            altura: 60,
+            velocidad: 15,
+            min: 450,
+            max: 600,
+            minBase: 30,
+            maxBase: 130,
+            minAltura: 30,
+            maxAltura: 60,
+
+        }
+        var r_5 = {
+            x: 350,
+            y: 240,
+            color: "red",
+            base: 130,
+            altura: 60,
+            velocidad: 15,
+            min: 0,
+            max: 150,
+            minBase: 30,
+            maxBase: 130,
+            minAltura: 30,
+            maxAltura: 60,
+
+        }
+        var r_6 = {
+            x: 600,
+            y: 440,
+            color: "blue",
+            base: 130,
+            altura: 60,
+            velocidad: 15,
+            min: 150,
+            max: 300,
+            minBase: 30,
+            maxBase: 130,
+            minAltura: 30,
+            maxAltura: 60,
+
+        }
+        var r_7 = {
+            x: 400,
+            y: 340,
+            color: "purple",
+            base: 130,
+            altura: 60,
+            velocidad: 15,
+            min: 300,
+            max: 450,
+            minBase: 30,
+            maxBase: 130,
+            minAltura: 30,
+            maxAltura: 60,
+
+        }
+        var r_8 = {
+            x: 200,
+            y: 100,
+            color: "red",
+            base: 130,
+            altura: 60,
+            velocidad: 15,
+            min: 450,
+            max: 600,
+            minBase: 30,
+            maxBase: 130,
+            minAltura: 30,
+            maxAltura: 60,
+
+        }
+        var jugador = {
+            x: 100,
+            y: 200,
+            color: "purple",
+            radio: 20,
+            velocidadX: 20,
+            fuerzaSalto: 50,
+            gravedad: 4,
+        }
+        var enemigo1 = {
+            x: 1400,
+            y: 100,
+            color: "green",
+            base: 80,
+            altura: 40,
+            velocidad: 15,
+            min: 40,
+            max: 360,
+            tipo: "enemigo"
+        }
+        var enemigo2  = {
+            x: 1400,
+            y: 400,
+            color: "green",
+            base: 80,
+            altura: 40,
+            velocidad: 15,
+            min: 600,
+            max: 520,
+            tipo: "enemigo"
+        }
+        var objeto_Jugador = new Jugador(jugador)
+        var objeto_enemigo1 = new Figuras(enemigo1)
+        var objeto_enemigo2 = new Figuras(enemigo2)
+        var objeto_1r = new Figuras(r_1)
+        var objeto_2r = new Figuras(r_2)
+        var objeto_3r = new Figuras(r_3)
+        var objeto_4r = new Figuras(r_4)
+        var objeto_5r = new Figuras(r_5)
+        var objeto_6r = new Figuras(r_6)
+        var objeto_7r = new Figuras(r_7)
+        var objeto_8r = new Figuras(r_8)
+        objeto_Jugador.renderizarJugador()
+        objeto_enemigo1.renderizar()
+        objeto_enemigo2.renderizar()
+        function teclaPresionada(event){
+            if(event.keyCode == 65 || event.keyCode == 68 || event.keyCode == 37 || event.keyCode == 39 ){ //teclas A y D = 65 y 68            flechas izquierda y derecha == 37 y 39
+                objeto_Jugador.moverse(event.keyCode)
+            }
+            if(event.keyCode == 32){ // Tecla espacio
+                objeto_Jugador.saltar(objeto_1r,objeto_2r,objeto_3r,objeto_4r,objeto_5r,objeto_6r,objeto_7r,objeto_8r) 
+            }
+            if(event.keyCode == 69){ //Tecla E 
+             objeto_Jugador.musicaAmbiente()
+            }
+            if(event.keyCode == 88 ){ //Tecla X
+                var estado = objeto_Jugador.iniciarJuego()
+                if(estado == 1){
+                    var intervalo = setInterval(() => {
+                        objeto_Jugador.borrarse()
+                        objeto_Jugador.actualizarSalto(objeto_1r,objeto_2r,objeto_3r,objeto_4r,objeto_5r,objeto_6r,objeto_7r,objeto_8r)
+                        objeto_1r.renderizar()
+                        objeto_2r.renderizar()
+                        objeto_3r.renderizar()
+                        objeto_4r.renderizar()
+                        objeto_5r.renderizar()
+                        objeto_6r.renderizar()
+                        objeto_7r.renderizar()
+                        objeto_8r.renderizar()
+                        objeto_1r.movimientoAutomatico()
+                        objeto_2r.movimientoAutomatico()
+                        objeto_3r.movimientoAutomatico()
+                        objeto_4r.movimientoAutomatico()
+                        objeto_5r.movimientoAutomatico()
+                        objeto_6r.movimientoAutomatico()
+                        objeto_7r.movimientoAutomatico()
+                        objeto_8r.movimientoAutomatico()
+                        objeto_enemigo1.movimientoAutomatico()
+                        objeto_enemigo2.movimientoAutomatico()
+                        objeto_Jugador.detectarColisionesEnemigo(objeto_enemigo1)
+                        objeto_Jugador.detectarColisionesEnemigo(objeto_enemigo2)
+                        objeto_Jugador.actualizarVelocidadesPuntaje(objeto_1r,objeto_2r,objeto_3r,objeto_4r,objeto_5r,objeto_6r,objeto_7r,objeto_8r, objeto_enemigo1, objeto_enemigo2)
+                        objeto_Jugador.perder(intervalo)
+                    }, 100)
+                }
+            }
+        }
+    </script>
+</body>
+</html>
