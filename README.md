@@ -12,6 +12,14 @@ The primary goal of this project was to apply advanced **Object-Oriented Program
 * **HTML5 Canvas Rendering:** Managing frame-by-frame drawing and real-time screen updates.
 <img width="1205" height="606" alt="image" src="https://github.com/user-attachments/assets/75700783-8959-4299-ae80-84628d1d5810" />
 <img width="1208" height="607" alt="image" src="https://github.com/user-attachments/assets/4393f2ad-0da2-44d1-ba4b-c8de98870ebd" />
+
+SOME GAMEPLAY: 
+
+
 <img width="690" height="390" alt="Screen Recording 2026-05-18 115103" src="https://github.com/user-attachments/assets/843d1738-f79c-41ae-a875-4f860df82481" />
 
+
+INSTRUCTIONS: 
+
+To play the game, just download the whole zip from the repository, and then open the HTML, it should be enough
 
